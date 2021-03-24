@@ -14,4 +14,36 @@
   .news-item:nth-child(odd) {
     @apply bg-medBrown bg-opacity-25;
   }
+
+  .btn {
+    @apply mx-auto max-w-min p-2 rounded-md border-2 border-opacity-0 transform transition-all hover:scale-110 hover:border-opacity-100
+  }
+
+  .bg-image, .bg-overlay {
+    position: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  z-index: -1;
+  }
+
+  .bg-overlay {
+    z-index: 1;
+    background-color: rgba(0,0,0,.8);
+    
+  }
+  
+}
+
+@layer base {
+  input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+  button {
+    @apply bg-medBrown border-lightBrown
+  }
 }

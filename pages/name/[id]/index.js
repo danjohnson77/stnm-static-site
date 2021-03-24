@@ -18,10 +18,10 @@ const name = ({ entry }) => {
   }, []);
 
   return (
-    <section className="py-24">
-      <div className="grid grid-cols-2">
-        <div className="flex content-center items-center  flex-col p-5">
-          <img src={s3} alt="" className="object-contain" />
+    <section className="py-24 bg-darkBrown min-h-screen">
+      <div className="grid grid-cols-2 items-center">
+        <div className="flex justify-center content-center items-center flex-col p-5">
+          <img src={s3} alt="" className="object-contain w-8/12" />
 
           <h1 className="text-4xl mt-5">{name}</h1>
           <p className="text-lg">

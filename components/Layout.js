@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
 
       <Nav />
       <main
-        className="flex min-w-screen flex-col justify-center font-serif bg-darkBrown
+        className="flex min-w-screen flex-col justify-center font-serif 
       min-h-screen text-white"
       >
         {children}
