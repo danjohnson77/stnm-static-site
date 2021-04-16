@@ -17,9 +17,9 @@ const Nav = () => {
   };
 
   return (
-    <nav className="fixed lg:top-0 z-50">
+    <nav className="sticky lg:top-0 z-50">
       <div
-        className="w-12 h-12 cursor-pointer bg-black  rounded-md lg:hidden fixed m-5"
+        className="w-12 h-12 cursor-pointer bg-transparent rounded-md lg:hidden fixed m-5"
         onClick={() => setOpen(!open)}
       >
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@ const Nav = () => {
       </div>
 
       <div
-        className={`text-white text-2xl text-center font-serif w-screen justify-center bg-black ${
+        className={`text-white text-2xl text-center font-serif w-screen justify-center bg-black  ${
           open ? "flex flex-col h-screen bg-black" : "hidden"
         } lg:flex lg:justify-between lg:p-5 ${shadeNav && "bg-black"}`}
       >

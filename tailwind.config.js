@@ -6,6 +6,7 @@ module.exports = {
       serif: ["ui-serif", '"Cormorant Garamond"'],
       sans: ["ui-sans-serif", "system-ui", "Arial"],
     },
+
     extend: {
       backgroundImage: (theme) => ({ landing: "url('/landing.png')" }),
       colors: {

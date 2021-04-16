@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-export default function names({ names, details }) {
+export default function names({ names, details, context }) {
   const handleUpdate = (e) => {
     console.log("UPDATE");
   };
@@ -16,9 +16,7 @@ export default function names({ names, details }) {
   };
 
   const [state, setState] = useState({
-    name: "",
-    lat: "",
-    lng: "",
+    ...context,
   });
 
   const [suggestions, setSuggestions] = useState([]);
@@ -37,26 +35,34 @@ export default function names({ names, details }) {
 
     if (e.target.value.length > 4) {
       try {
-        const res = await axios.post(
-          `http://localhost:5000/location?input=${e.target.value}`,
-          {
-            input: e.target.value,
-          }
-        );
-        res.data.data && console.log("res", res.data.data);
+        const res = await axios.post(`http://localhost:5000/location`, {
+          input: e.target.value,
+        });
+        console.log("res", res);
         res.data.data && setSuggestions(res.data.data);
         refreshData();
-        console.log("sug", suggestions);
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-  const handleLocationClick = async (e, lat, lng) => {
-    console.log("click", e.target.getAttribute("value"));
-    setState({ ...state, location: e.target.getAttribute("value"), lat, lng });
-    setLocSelected(true);
+  const handleLocationClick = async (e) => {
+    try {
+      const coords = await axios.post("http://localhost:5000/location/coords", {
+        place_id: e.target.getAttribute("place_id"),
+      });
+
+      setState({
+        ...state,
+        location: e.target.getAttribute("value"),
+        lat: coords.data.data.lat,
+        lng: coords.data.data.lng,
+      });
+      setLocSelected(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -65,7 +71,7 @@ export default function names({ names, details }) {
         <div className="bg-overlay"></div>
         <Image src="/names.jpg" layout="fill" objectFit="cover" />
       </div>
-      <section className="w-screen text-white flex flex-col justify-center items-center py-24 z-0">
+      <section className="w-screen text-white flex flex-col justify-center items-center py-5 z-0">
         <div className="w-11/12 bg-black rounded-md bg-opacity-50 p-5 mx-auto">
           <h3 className="text-xl mb-2">Disclaimer</h3>
           <p>
@@ -99,6 +105,7 @@ export default function names({ names, details }) {
                   id="name"
                   type="text"
                   name="name"
+                  value={state.name}
                   onChange={handleChange}
                   className="bg-transparent mt-0 block  px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown"
                 />
@@ -113,6 +120,7 @@ export default function names({ names, details }) {
                   type="number"
                   name="incident_start"
                   onChange={handleChange}
+                  value={state.incident_start}
                   className="bg-transparent mt-0 block px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown text-center w-2/12"
                 />
                 <span> - </span>
@@ -120,13 +128,18 @@ export default function names({ names, details }) {
                   type="number"
                   name="incident_end"
                   onChange={handleChange}
+                  value={state.incident_end}
                   className="bg-transparent mt-0 block  px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown text-center w-2/12"
                 />
               </label>
               <label htmlFor="location" className="flex items-center">
                 <span className="text-white-700 mr-2">Location:</span>
                 <span className="text-white-700 mr-2">Within</span>
-                <select className="bg-transparent mx-1" name="locationRange">
+                <select
+                  className="bg-transparent mx-1"
+                  name="locationRange"
+                  defaultValue={state.locationRange}
+                >
                   <option value="5">5</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
@@ -148,17 +161,18 @@ export default function names({ names, details }) {
                         suggestions &&
                         suggestions.length > 0 &&
                         suggestions.map((row, index) => {
-                          const { city, state, lat, lng } = row;
+                          const { description, place_id } = row;
 
                           return (
                             <li
                               onClick={(e) => {
-                                handleLocationClick(e, lat, lng);
+                                handleLocationClick(e);
                               }}
                               className="hover:bg-white hover:text-black"
                               key={index}
-                              value={`${city}, ${state}`}
-                            >{`${city}, ${state}`}</li>
+                              place_id={place_id}
+                              value={`${description}`}
+                            >{`${description}`}</li>
                           );
                         })}
                     </ul>
@@ -168,11 +182,19 @@ export default function names({ names, details }) {
                 </div>
               </label>
             </div>
+
             <div className="grid grid-cols-2 mt-5">
               {details.map((d, index) => {
                 return (
                   <div key={index} className="flex p-1 items-center">
-                    <input type="radio" value={d.tag} name="details" />
+                    <input
+                      type="checkbox"
+                      value={d.tag}
+                      name="details"
+                      defaultChecked={
+                        state.details && state.details.includes(d.tag)
+                      }
+                    />
                     <label htmlFor={d.tag} className="ml-1">
                       {d.display_text}
                     </label>
@@ -180,24 +202,57 @@ export default function names({ names, details }) {
                 );
               })}
             </div>
+
+            {/* <div className="flex w-11/12 justify-between my-3">
+              <label htmlFor="gender" className="flex items-center">
+                <span className="text-white-700 mr-2">Gender:</span>
+
+                <select className="bg-transparent mx-1" name="gender">
+                  <option value="">Any</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="nonbinary">Non-binary</option>
+                </select>
+              </label>
+
+              <label htmlFor="lgbtq" className="flex items-center">
+                <span className="text-white-700 mr-2">LGBTQ:</span>
+                <select className="bg-transparent mx-1" name="lgbtq">
+                  <option value="">Any</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="unknown">Unknown</option>
+                </select>
+              </label>
+
+              <label htmlFor="gender" className="flex items-center">
+                <span className="text-white-700 mr-2">Cis / Trans:</span>
+
+                <select className="bg-transparent mx-1" name="cis_trans">
+                  <option value="">Any</option>
+                  <option value="cis">Cis</option>
+                  <option value="trans">Trans</option>
+                  <option value="unknown">Unknown</option>
+                </select>
+              </label>
+            </div> */}
             <button className="btn my-5" onClick={handleUpdate}>
               UPDATE
             </button>
           </form>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-black w-11/12 justify-center items-center p-5 gap-5 rounded-lg bg-opacity-50">
+        <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-black w-11/12 justify-center items-center p-5 gap-5 rounded-lg bg-opacity-50">
           {names &&
             names.map((n, index) => {
               const { name, birth_year, incident_year, id, s3 } = n;
               return (
                 <Link href={`/name/${id}`} key={index}>
-                  <div className="flex flex-col justify-center items-center cursor-pointer z-0 p-5 transform hover:scale-105 transition-all ">
+                  <div className="flex flex-col justify-start items-center cursor-pointer z-0 p-5 transform hover:scale-105 transition-all min-h-full">
                     <Image src={s3} alt="" width="200" height="300" />
                     <p className="text-xl mt-5">{name}</p>
-                    <p>{`${birth_year || "????"} - ${
-                      incident_year || "????"
-                    }`}</p>
+                    <p>{`${birth_year && "b. " + birth_year}`}</p>{" "}
+                    <p> {incident_year && "d. " + incident_year}</p>
                   </div>
                 </Link>
               );
@@ -216,6 +271,18 @@ export const getServerSideProps = async (context) => {
   const rangeStr = `${
     context.query.incident_start && context.query.incident_start
   },${context.query.incident_end && context.query.incident_end}`;
+
+  // const multiStr = `${context.query.gender && context.query.gender},${
+  //   context.query.lgbtq && context.query.lgbtq
+  // },${context.query.cis_trans && context.query.cis_trans}`;
+
+  // const multiCatStr = `${context.query.gender && "gender"},${
+  //   context.query.lgbtq && "lgbtq"
+  // },${context.query.cis_trans && "cis_trans"}`;
+
+  // const multiJoined =
+  //   `${multiStr !== "" && "&matchMulti=" + multiStr}` +
+  //   `${multiCatStr !== "" && "&matchMultiCategories=" + multiCatStr}`;
 
   const res = await axios.get(
     `http://localhost:5000/lives?${
@@ -255,6 +322,7 @@ export const getServerSideProps = async (context) => {
     props: {
       names,
       details: details.data,
+      context: context.query,
     },
   };
 };
