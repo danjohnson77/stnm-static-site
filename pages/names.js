@@ -71,7 +71,7 @@ export default function names({ names, details, context }) {
         <div className="bg-overlay"></div>
         <Image src="/names.jpg" layout="fill" objectFit="cover" />
       </div>
-      <section className="w-screen text-white flex flex-col justify-center items-center py-5 z-0">
+      <section className="text-white flex flex-col justify-center items-center py-5 z-0">
         <div className="w-11/12 bg-black rounded-md bg-opacity-50 p-5 mx-auto">
           <h3 className="text-xl mb-2">Disclaimer</h3>
           <p>
@@ -115,7 +115,7 @@ export default function names({ names, details, context }) {
                 htmlFor="incident_year"
                 className="flex items-center justify-center"
               >
-                <span className="text-white-700 mr-2">Year:</span>
+                <span className="text-white-700 mr-2">Year of Incident:</span>
                 <input
                   type="number"
                   name="incident_start"
@@ -156,7 +156,7 @@ export default function names({ names, details, context }) {
                     className="bg-transparent mt-0 block px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown "
                   />
                   <div className="relative">
-                    <ul className="bg-transparent absolute  p-2 divide-y-2">
+                    <ul className="bg-black absolute  py-2  shadow-lg">
                       {!locSelected &&
                         suggestions &&
                         suggestions.length > 0 &&
@@ -168,7 +168,7 @@ export default function names({ names, details, context }) {
                               onClick={(e) => {
                                 handleLocationClick(e);
                               }}
-                              className="hover:bg-white hover:text-black"
+                              className="hover:bg-white hover:text-black py-2 text-center"
                               key={index}
                               place_id={place_id}
                               value={`${description}`}
@@ -243,7 +243,7 @@ export default function names({ names, details, context }) {
         </div>
 
         <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-black w-11/12 justify-center items-center p-5 gap-5 rounded-lg bg-opacity-50">
-          {names &&
+          {names && names.length > 0 ? (
             names.map((n, index) => {
               const { name, birth_year, incident_year, id, s3 } = n;
               return (
@@ -256,7 +256,10 @@ export default function names({ names, details, context }) {
                   </div>
                 </Link>
               );
-            })}
+            })
+          ) : (
+            <h1>No results found</h1>
+          )}
         </div>
       </section>
     </>
@@ -285,7 +288,7 @@ export const getServerSideProps = async (context) => {
   //   `${multiCatStr !== "" && "&matchMultiCategories=" + multiCatStr}`;
 
   const res = await axios.get(
-    `http://localhost:5000/lives?${
+    `http://localhost:5000/lives?sort=name${
       context.query.name
         ? "&match=" + context.query.name + "&matchCategory=name"
         : ""

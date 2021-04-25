@@ -1,6 +1,6 @@
 const News = () => {
   return (
-    <section className="h-screen bg-darkBrown text-white flex flex-col p-5 justify-center">
+    <section className="min-h-screen bg-transparent  flex flex-col p-5 justify-center z-10 scroll-align-start">
       <h1 className="text-5xl">Latest News</h1>
       <div className="flex flex-col justify-center min-h-max divide-2">
         <div className="flex p-5 justify-center mb-10">

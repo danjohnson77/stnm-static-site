@@ -2,11 +2,8 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section
-      className="h-screen bg-landing bg-cover bg-center flex justify-center"
-      onScroll={() => console.log("scrolling")}
-    >
-      <div className="bg-darkBrown w-screen bg-opacity-50 flex flex-col justify-center text-white text-6xl text-center">
+    <section className="h-screen bg-transparent flex justify-center z-10 scroll-align-start">
+      <div className="w-11/12 bg-opacity-50 flex flex-col justify-center  text-6xl text-center">
         <motion.h3
           initial="hidden"
           animate="visible"

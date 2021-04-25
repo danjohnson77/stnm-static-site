@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scroll-snap-none {
+    scroll-snap-type: none;
+  }
+  .scroll-snap-x {
+    scroll-snap-type: x;
+  }
+
+  .scroll-snap-y {
+    scroll-snap-type: y mandatory;
+  }
+
+  .scroll-align-start {
+    scroll-snap-align: start;
+  }
+}
+
 @layer components {
   .nav-item {
     @apply hover:text-lightBrown transition-colors lg:pr-5;
@@ -23,6 +40,10 @@
     @apply mx-auto p-2 rounded-md border-2 border-opacity-0 transform transition-all hover:scale-110 hover:border-opacity-100;
   }
 
+  .divider {
+    @apply divide-white divide-opacity-30;
+  }
+
   .bg-image,
   .bg-overlay {
     position: fixed;
@@ -34,7 +55,7 @@
 
   .bg-overlay {
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
   }
 
   .names-row {

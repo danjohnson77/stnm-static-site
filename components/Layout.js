@@ -9,12 +9,12 @@ const Layout = ({ children }) => {
 
       <Nav />
       <main
-        className="min-w-screen font-serif 
+        className="min-w-screen min-h-screen font-serif 
        text-white"
       >
         {children}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

@@ -39,8 +39,8 @@ const name = ({ entry }) => {
         <div className="bg-overlay"></div>
         <Image src="/name.jpg" layout="fill" objectFit="cover" />
       </div>
-      <section className="px-5 lg:grid lg:grid-cols-2 lg:gap-4">
-        <div className="flex flex-col justify-center">
+      <section className="p-5 lg:grid lg:grid-cols-2 lg:gap-4">
+        <div className="flex flex-col">
           <div className="panel my-5 lg:my-0 min-w-full">
             <div className="flex justify-start content-center items-center flex-col p-5">
               {s3 && (
@@ -55,10 +55,7 @@ const name = ({ entry }) => {
 
               <h1 className="text-4xl mt-5">{name}</h1>
               <p className="text-lg">
-                {birth_month === "" ||
-                  birth_day === "" ||
-                  birth_year === "" ||
-                  `b.`}{" "}
+                {birth_year !== "" && `b.`}{" "}
                 {birth_month !== "" && birth_month + "-"}
                 {birth_day !== "" && birth_day + "-"}
                 {birth_year !== "" && birth_year}
@@ -109,14 +106,16 @@ const name = ({ entry }) => {
                   ></div>{" "}
                 </>
               ) : (
-                <div className="p-5 flex flex-col justify-between space-y-6">
+                <div className="p-5 flex flex-col justify-between space-y-6 items-center ">
                   <p>
                     We have not yet added biographical information for {name}
                   </p>
                   <p>
                     Do you have information you'd like to share about {name}?
                     Please email{" "}
-                    <Link href="mailto:submissions@saytheirnamesmemorials.com">
+                    <Link
+                      href={`mailto:submissions@saytheirnamesmemorials.com?subject=STNM Website Inquiry: ${name}`}
+                    >
                       submissions@saytheirnamesmemorials.com
                     </Link>
                   </p>
@@ -145,7 +144,7 @@ export const getStaticProps = async (context) => {
 };
 
 export const getStaticPaths = async () => {
-  const res = await axios.get(`http://localhost:5000/lives`);
+  const res = await axios.get(`http://localhost:5000/lives?sort=name`);
 
   const entries = await res.data;
 

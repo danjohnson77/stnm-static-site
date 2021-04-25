@@ -54,11 +54,13 @@ const Nav = () => {
       </div>
 
       <div
-        className={`text-white text-2xl text-center font-serif w-screen justify-center bg-black  ${
+        className={`text-white text-2xl text-center font-serif justify-center bg-black  ${
           open ? "flex flex-col h-screen bg-black" : "hidden"
         } lg:flex lg:justify-between lg:p-5 ${shadeNav && "bg-black"}`}
       >
-        <h1 className={`${open && "hidden"}`}>Say Their Names</h1>
+        <h1 className={`${open && "hidden"} 'cursor-pointer'`}>
+          <Link href="/">Say Their Names Memorial</Link>
+        </h1>
         <ul className="flex min-w-screen flex-col lg:flex-row">
           <li className="nav-item" onClick={() => setOpen(false)}>
             <Link href="/">Home</Link>
@@ -80,7 +82,7 @@ const Nav = () => {
           </li>
           <li className="nav-item" onClick={() => setOpen(false)}>
             <Link href="https://www.instagram.com/saytheirnamesmemorial">
-              <i className="fab fa-instagram"></i>
+              <i className="fab fa-instagram cursor-pointer"></i>
             </Link>
           </li>
         </ul>

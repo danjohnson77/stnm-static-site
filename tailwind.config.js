@@ -8,7 +8,16 @@ module.exports = {
     },
 
     extend: {
-      backgroundImage: (theme) => ({ landing: "url('/landing.png')" }),
+      backgroundImage: (theme) => ({
+        landingZero: "url('/landing_0.jpg')",
+        landingOne: "url('/landing_1.jpg')",
+        landingTwo: "url('/landing_2.jpg')",
+        landingThree: "url('/landing_3.jpg')",
+      }),
+
+      transitionProperty: {
+        display: "display",
+      },
       colors: {
         lightBrown: {
           DEFAULT: "#D5D2CD",
