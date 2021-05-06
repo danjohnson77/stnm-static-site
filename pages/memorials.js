@@ -43,7 +43,7 @@ const memorials = ({ memorials }) => {
 
 export const getServerSideProps = async (context) => {
   const res = await axios.get(
-    `http://localhost:5000/memorials?splitByDate=true`
+    `${process.env.API_URL}/memorials?splitByDate=true`
   );
 
   const memorials = await res.data;

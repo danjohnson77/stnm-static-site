@@ -120,7 +120,7 @@ const name = ({ entry }) => {
 
 export const getStaticProps = async (context) => {
   const res = await axios.get(
-    `http://localhost:5000/lives/${context.params.id}`
+    `${process.env.API_URL}/lives/${context.params.id}`
   );
 
   const entry = await res.data;
@@ -133,7 +133,7 @@ export const getStaticProps = async (context) => {
 };
 
 export const getStaticPaths = async () => {
-  const res = await axios.get(`http://localhost:5000/lives?sort=name`);
+  const res = await axios.get(`${process.env.API_URL}/lives?sort=name`);
 
   const entries = await res.data;
 

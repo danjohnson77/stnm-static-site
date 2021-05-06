@@ -26,7 +26,7 @@ const SearchFilters = ({ details, context }) => {
 
     if (e.target.value.length > 4) {
       try {
-        const res = await axios.post(`http://localhost:5000/location`, {
+        const res = await axios.post(`${process.env.API_URL}/location`, {
           input: e.target.value,
         });
 
@@ -39,9 +39,12 @@ const SearchFilters = ({ details, context }) => {
 
   const handleLocationClick = async (e) => {
     try {
-      const coords = await axios.post("http://localhost:5000/location/coords", {
-        place_id: e.target.getAttribute("place_id"),
-      });
+      const coords = await axios.post(
+        `${process.env.API_URL}/location/coords`,
+        {
+          place_id: e.target.getAttribute("place_id"),
+        }
+      );
 
       setState({
         ...state,

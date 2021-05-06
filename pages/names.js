@@ -113,7 +113,7 @@ export const getServerSideProps = async (context) => {
   //   `${multiCatStr !== "" && "&matchMultiCategories=" + multiCatStr}`;
 
   const res = await axios.get(
-    `http://localhost:5000/lives?sort=name${
+    `${process.env.API_URL}/lives?sort=name${
       context.query.name
         ? "&match=" + context.query.name + "&matchCategory=name"
         : ""
@@ -141,7 +141,7 @@ export const getServerSideProps = async (context) => {
   const names = await res.data;
 
   const detailsRes = await axios.get(
-    `http://localhost:5000/lives/data/incident_details`
+    `${process.env.API_URL}/lives/data/incident_details`
   );
 
   const details = await detailsRes.data;

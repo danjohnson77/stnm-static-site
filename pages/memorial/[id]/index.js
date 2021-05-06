@@ -119,7 +119,7 @@ const memorial = ({ entry }) => {
 
 export const getStaticProps = async (context) => {
   const res = await axios.get(
-    `http://localhost:5000/memorials/${context.params.id}`
+    `${process.env.API_URL}/memorials/${context.params.id}`
   );
 
   const entry = await res.data;
@@ -132,7 +132,7 @@ export const getStaticProps = async (context) => {
 };
 
 export const getStaticPaths = async () => {
-  const res = await axios.get(`http://localhost:5000/memorials`);
+  const res = await axios.get(`${process.env.API_URL}/memorials`);
 
   const entries = await res.data;
 

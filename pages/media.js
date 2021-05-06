@@ -62,7 +62,7 @@ const media = ({ news }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const res = await axios.get(`http://localhost:5000/news`);
+  const res = await axios.get(`${process.env.API_URL}/news`);
 
   const news = await res.data;
 
