@@ -11,8 +11,8 @@ const memorial = ({ entry }) => {
     sponsors,
     organizers,
     location,
-    start_date,
-    end_date,
+    start_date_display,
+    end_date_display,
     media,
     donate_link,
     location_lat,
@@ -32,16 +32,7 @@ const memorial = ({ entry }) => {
   );
   return (
     <>
-      <div className="bg-image">
-        <div className="bg-overlay"></div>
-        <Image
-          src={s3 || "/memorial_default.jpg"}
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
-
-      <section className="pt-5">
+      <section className="relative z-50">
         <div className="panel w-11/12 flex flex-col justify-center items-center">
           <div className="w-10/12 py-5">
             <Image
@@ -52,9 +43,9 @@ const memorial = ({ entry }) => {
               objectFit="cover"
             />
           </div>
-          <h1 className="text-3xl">{name}</h1>
+          <h1 className="text-3xl text-center">{name}</h1>
           <p>
-            {start_date} - {end_date}
+            {start_date_display} - {end_date_display}
           </p>
           {donate_link !== "" && (
             <Link href={donate_link}>
@@ -67,15 +58,15 @@ const memorial = ({ entry }) => {
       </section>
       {location_lat && location_lng && (
         <section>
-          <div className="panel w-11/12 mt-5 flex">
-            <div className="w-6/12">
+          <div className="panel w-11/12 mt-5 flex flex-col lg:flex-row">
+            <div className="w-full">
               <GoogleMap
                 lat={parseFloat(location_lat)}
                 lng={parseFloat(location_lng)}
               />
             </div>
-            <div className="w-6/12 flex justify-center items-center">
-              <h1 className="text-2xl">{location}</h1>
+            <div className="w-full flex justify-center items-center p-5 text-center">
+              <h1 className="text-xl">{location}</h1>
             </div>
           </div>
         </section>
@@ -111,10 +102,8 @@ const memorial = ({ entry }) => {
                 <ul className="flex flex-col justify-between h-full">
                   {media.map((s, i) => {
                     return (
-                      <Link href={s.website}>
-                        <li key={i} className="cursor-pointer">
-                          {s.title}
-                        </li>
+                      <Link href={s.website} key={i}>
+                        <li className="cursor-pointer">{s.title}</li>
                       </Link>
                     );
                   })}

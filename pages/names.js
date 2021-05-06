@@ -1,268 +1,93 @@
-import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
+
+import SearchFilters from "../components/SearchFilters";
+import DropdownPanel from "../components/DropdownPanel";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useEffect } from "react";
 
 export default function names({ names, details, context }) {
-  const handleUpdate = (e) => {
-    console.log("UPDATE");
-  };
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
-  const router = useRouter();
+  useEffect(() => {
+    ScrollTrigger.batch(".name-entry", {
+      onEnter: (elements, triggers) => {
+        gsap.to(elements, {
+          opacity: 1,
 
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
-
-  const [state, setState] = useState({
-    ...context,
-  });
-
-  const [suggestions, setSuggestions] = useState([]);
-  const [locSelected, setLocSelected] = useState(false);
-
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleLocationChange = async (e) => {
-    setState({ ...state, location: e.target.value });
-    setLocSelected(false);
-
-    if (e.target.value.length > 4) {
-      try {
-        const res = await axios.post(`http://localhost:5000/location`, {
-          input: e.target.value,
+          duration: 0.6,
+          stagger: 0.3,
+          ease: "power1.out",
         });
-        console.log("res", res);
-        res.data.data && setSuggestions(res.data.data);
-        refreshData();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  const handleLocationClick = async (e) => {
-    try {
-      const coords = await axios.post("http://localhost:5000/location/coords", {
-        place_id: e.target.getAttribute("place_id"),
-      });
-
-      setState({
-        ...state,
-        location: e.target.getAttribute("value"),
-        lat: coords.data.data.lat,
-        lng: coords.data.data.lng,
-      });
-      setLocSelected(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+      },
+    });
+  }, []);
   return (
-    <>
-      <div className="bg-image">
-        <div className="bg-overlay"></div>
-        <Image src="/names.jpg" layout="fill" objectFit="cover" />
+    <section className="text-white flex flex-col justify-center items-center w-10/12 mx-auto">
+      <div className="panel w-full mx-auto mb-5 text-center flex flex-col">
+        <p>
+          {" "}
+          The following list is not exhaustive or complete. Please email us to
+          submit names, stories, news articles & photos.
+        </p>
+        <a href="mailto:submissions@saytheirnamesmemorials.com?subject=Name Submission">
+          <button className="btn my-5">Submit Now</button>
+        </a>
       </div>
-      <section className="text-white flex flex-col justify-center items-center py-5 z-0">
-        <div className="w-11/12 bg-black rounded-md bg-opacity-50 p-5 mx-auto">
-          <h3 className="text-xl mb-2">Disclaimer</h3>
-          <p>
-            This database has been compiled to highlight the gravity of systemic
-            racism on the Black community. It is not meant to be exclusionary,
-            however names included must represent Black lives.
-          </p>
-          <p>
-            Our goal is to fact check every story and provide accurate images,
-            names and information. However we rely on submissions, as well as
-            photos and information available publicly on the internet. If you
-            see errors or discrepancies on this website, or would like your
-            loved one removed from our memorial please notify us at{" "}
-            <Link href="mailto:info@saytheirnamesmemorials.com">
-              info@saytheirnamesmemorials.com
-            </Link>
-          </p>
+      <DropdownPanel classes="w-full panel mx-auto" heading="Disclaimer:">
+        <p>
+          This database has been compiled to highlight the gravity of systemic
+          racism on the Black community. It is not meant to be exclusionary,
+          however names included must represent Black lives.
+        </p>
+        <p>
+          Our goal is to fact check every story and provide accurate images,
+          names and information. However we rely on submissions, as well as
+          photos and information available publicly on the internet. If you see
+          errors or discrepancies on this website, or would like your loved one
+          removed from our memorial please notify us at{" "}
+          <Link href="mailto:info@saytheirnamesmemorials.com">
+            info@saytheirnamesmemorials.com
+          </Link>
+        </p>
 
-          <p>
-            Local memorials nationwide assume all liability for the photos and
-            information in their memorials.
-          </p>
-        </div>
-        <div className="my-10 w-11/12 bg-black rounded-md bg-opacity-50 p-5">
-          <h3 className="text-xl">Search Filters:</h3>
-          <form className="flex flex-col">
-            <div className="flex">
-              <label htmlFor="name" className="flex items-center  ">
-                <span className="text-white-700 mr-2">Name:</span>
-                <input
-                  id="name"
-                  type="text"
-                  name="name"
-                  value={state.name}
-                  onChange={handleChange}
-                  className="bg-transparent mt-0 block  px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown"
-                />
-              </label>
-
-              <label
-                htmlFor="incident_year"
-                className="flex items-center justify-center"
-              >
-                <span className="text-white-700 mr-2">Year of Incident:</span>
-                <input
-                  type="number"
-                  name="incident_start"
-                  onChange={handleChange}
-                  value={state.incident_start}
-                  className="bg-transparent mt-0 block px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown text-center w-2/12"
-                />
-                <span> - </span>
-                <input
-                  type="number"
-                  name="incident_end"
-                  onChange={handleChange}
-                  value={state.incident_end}
-                  className="bg-transparent mt-0 block  px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown text-center w-2/12"
-                />
-              </label>
-              <label htmlFor="location" className="flex items-center">
-                <span className="text-white-700 mr-2">Location:</span>
-                <span className="text-white-700 mr-2">Within</span>
-                <select
-                  className="bg-transparent mx-1"
-                  name="locationRange"
-                  defaultValue={state.locationRange}
-                >
-                  <option value="5">5</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="125">125</option>
-                </select>
-                <span className="text-white-700 mr-2"> miles of</span>
-                <div className="flex flex-col relative">
-                  <input
-                    type="text"
-                    name="location"
-                    value={state.location}
-                    autoComplete="off"
-                    onChange={handleLocationChange}
-                    className="bg-transparent mt-0 block px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown "
-                  />
-                  <div className="relative">
-                    <ul className="bg-black absolute  py-2  shadow-lg">
-                      {!locSelected &&
-                        suggestions &&
-                        suggestions.length > 0 &&
-                        suggestions.map((row, index) => {
-                          const { description, place_id } = row;
-
-                          return (
-                            <li
-                              onClick={(e) => {
-                                handleLocationClick(e);
-                              }}
-                              className="hover:bg-white hover:text-black py-2 text-center"
-                              key={index}
-                              place_id={place_id}
-                              value={`${description}`}
-                            >{`${description}`}</li>
-                          );
-                        })}
-                    </ul>
-                    <input type="hidden" name="lat" value={state.lat} />
-                    <input type="hidden" name="lng" value={state.lng} />
-                  </div>
+        <p>
+          Local memorials nationwide assume all liability for the photos and
+          information in their memorials.
+        </p>
+      </DropdownPanel>
+      <DropdownPanel
+        classes="w-full panel mx-auto my-5"
+        heading="Search Filters:"
+        startOpen={Object.keys(context).length > 0}
+      >
+        <SearchFilters context={context} details={details} />
+      </DropdownPanel>
+      <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-black w-full justify-center items-center p-5 gap-5 rounded-lg bg-opacity-50">
+        {names && names.length > 0 ? (
+          names.map((n, index) => {
+            const { name, birth_year, incident_year, id, s3 } = n;
+            return (
+              <Link href={`/name/${id}`} key={index}>
+                <div className="name-entry flex flex-col justify-start items-center cursor-pointer z-0 p-5 transform hover:scale-105 opacity-0 transition-all min-h-full">
+                  <Image src={s3} alt="" width="200" height="300" />
+                  <p className="text-xl mt-5 text-center">{name}</p>
+                  <p>{`${birth_year && "b. " + birth_year}`}</p>{" "}
+                  <p> {incident_year && "d. " + incident_year}</p>
                 </div>
-              </label>
-            </div>
-
-            <div className="grid grid-cols-2 mt-5">
-              {details.map((d, index) => {
-                return (
-                  <div key={index} className="flex p-1 items-center">
-                    <input
-                      type="checkbox"
-                      value={d.tag}
-                      name="details"
-                      defaultChecked={
-                        state.details && state.details.includes(d.tag)
-                      }
-                    />
-                    <label htmlFor={d.tag} className="ml-1">
-                      {d.display_text}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* <div className="flex w-11/12 justify-between my-3">
-              <label htmlFor="gender" className="flex items-center">
-                <span className="text-white-700 mr-2">Gender:</span>
-
-                <select className="bg-transparent mx-1" name="gender">
-                  <option value="">Any</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="nonbinary">Non-binary</option>
-                </select>
-              </label>
-
-              <label htmlFor="lgbtq" className="flex items-center">
-                <span className="text-white-700 mr-2">LGBTQ:</span>
-                <select className="bg-transparent mx-1" name="lgbtq">
-                  <option value="">Any</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
-                  <option value="unknown">Unknown</option>
-                </select>
-              </label>
-
-              <label htmlFor="gender" className="flex items-center">
-                <span className="text-white-700 mr-2">Cis / Trans:</span>
-
-                <select className="bg-transparent mx-1" name="cis_trans">
-                  <option value="">Any</option>
-                  <option value="cis">Cis</option>
-                  <option value="trans">Trans</option>
-                  <option value="unknown">Unknown</option>
-                </select>
-              </label>
-            </div> */}
-            <button className="btn my-5" onClick={handleUpdate}>
-              UPDATE
-            </button>
-          </form>
-        </div>
-
-        <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-black w-11/12 justify-center items-center p-5 gap-5 rounded-lg bg-opacity-50">
-          {names && names.length > 0 ? (
-            names.map((n, index) => {
-              const { name, birth_year, incident_year, id, s3 } = n;
-              return (
-                <Link href={`/name/${id}`} key={index}>
-                  <div className="flex flex-col justify-start items-center cursor-pointer z-0 p-5 transform hover:scale-105 transition-all min-h-full">
-                    <Image src={s3} alt="" width="200" height="300" />
-                    <p className="text-xl mt-5">{name}</p>
-                    <p>{`${birth_year && "b. " + birth_year}`}</p>{" "}
-                    <p> {incident_year && "d. " + incident_year}</p>
-                  </div>
-                </Link>
-              );
-            })
-          ) : (
-            <h1>No results found</h1>
-          )}
-        </div>
-      </section>
-    </>
+              </Link>
+            );
+          })
+        ) : (
+          <h1>No results found</h1>
+        )}
+      </div>
+    </section>
   );
 }
 

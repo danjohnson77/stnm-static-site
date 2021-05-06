@@ -12,11 +12,7 @@ const memorials = ({ memorials }) => {
 
   return (
     <>
-      <div className="bg-image">
-        <div className="bg-overlay"></div>
-        <Image src="/memorials.jpg" layout="fill" objectFit="cover" />
-      </div>
-      <section className="p-5">
+      <section className="px-5">
         <div className="panel w-11/12 text-center">
           <p>
             Would you like to host a memorial in your area?{" "}

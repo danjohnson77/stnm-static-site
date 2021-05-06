@@ -3,13 +3,13 @@ import Link from "next/link";
 
 const About = () => {
   return (
-    <section className="min-h-screen bg-transparent  flex flex-col justify-center items-center lg:flex-row p-5 scroll-align-start">
-      <div className="panel flex divider divide-x">
-        <div className="flex flex-col text-center w-11/12 lg:w-6/12 items-center py-5">
-          <div className="shadow-xl w-max">
-            <Image src="/about_landing.jpg" width="400" height="400" />
+    <section className="bg-transparent flex flex-col justify-center items-center lg:flex-row p-5 scroll-align-start">
+      <div className="panel flex flex-col lg:flex-row divider divide-y lg:divide-x lg:divide-y-0 items-center w-11/12">
+        <div className="flex flex-col text-center  lg:w-6/12 items-center py-5">
+          <div className="">
+            <Image src="/about_landing.jpg" width="300" height="300" />
           </div>
-          <p className="mt-5">Creators Joy and Elise Proctor</p>
+          <p className="mt-5 ">Creators Joy and Elise Proctor</p>
         </div>
         <div className="flex flex-col p-5 w-11/12 lg:w-6/12 justify-center text-center ">
           <h1 className="text-5xl mb-5">About the Memorial</h1>

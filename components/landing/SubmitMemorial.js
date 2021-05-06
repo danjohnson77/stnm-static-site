@@ -1,14 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import Slidebox from "../Slidebox";
 
 const SubmitMemorial = ({ memorials }) => {
-  console.log("props", memorials);
-
   return (
-    <section className="min-h-screen bg-transparent flex flex-col justify-center items-center p-5 scroll-align-start ">
-      <div className="panel text-center w-11/12 flex divide-x  divider">
-        <div className={`${memorials ? "w-6/12" : "w-11/12"} p-5`}>
+    <section className="bg-transparent flex flex-col justify-center items-center p-5 scroll-align-start">
+      <div className="panel text-center w-11/12 flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divider items-stretch">
+        <div className={`${memorials ? "lg:w-6/12" : "w-11/12"} p-5`}>
           <h1 className="text-3xl mb-5">
             Create a memorial in your community.
           </h1>
@@ -29,27 +26,39 @@ const SubmitMemorial = ({ memorials }) => {
           </Link>
         </div>
         {memorials && (
-          <div className="w-6/12 p-5">
+          <div className="lg:w-6/12 w-11/12 p-5 flex flex-col divide-y divider  lg:justify-between">
             <h1 className="text-3xl mb-5">Upcoming Memorials</h1>
-            <div className="flex justify-center">
-              <Slidebox
-                keys={{
-                  img: "s3",
-                  mainText: "name",
-                  subText: [
-                    "location",
-                    [
-                      { key: "start_date", isKey: true },
-                      "-",
-                      { key: "end_date", isKey: true },
-                    ],
-                  ],
-                }}
-                data={memorials}
-                width="300"
-                height="300"
-              />
+            <div className="flex flex-col items-center justify-center divide-y divider h-full">
+              {memorials.map((m, i) => {
+                const {
+                  s3,
+                  name,
+                  location,
+                  start_date_display,
+                  end_date_display,
+                  id,
+                } = m;
+                return (
+                  <Link href={`/memorial/${id}`} key={i}>
+                    <div className="flex w-full flex-col  lg:flex-row cursor-pointer justify-center align-center items-center">
+                      <div className="py-5">
+                        <Image src={s3} width="75" height="75" />
+                      </div>
+                      <div className="flex flex-col pb-5 w-full">
+                        <h3 className="text-2xl">{name}</h3>
+                        <p>{location}</p>
+                        <p>
+                          {start_date_display} - {end_date_display}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
+            <Link href="/memorials">
+              <button className="btn">See All Memorials</button>
+            </Link>
           </div>
         )}
       </div>

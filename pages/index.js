@@ -1,50 +1,48 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Hero from "../components/landing/Hero";
-import News from "../components/landing/News";
+
 import SubmitMemorial from "../components/landing/SubmitMemorial";
 import About from "../components/landing/About";
 import SubmitName from "../components/landing/SubmitName";
-import FixedBg from "../components/landing/FixedBg";
+
 import InstagramPanel from "../components/landing/InstagramPanel";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
 export default function Home({ memorials }) {
-  const images = [
-    "landing_0.jpg",
-    "landing_1.jpg",
-    "landing_2.jpg",
-    "landing_3.jpg",
-  ];
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   const [init, setInit] = useState(true);
+  const [currentBg, setCurrentBg] = useState(0);
+
+  const handleScroll = (e) => {
+    const scrollPosition = Math.floor(window.scrollY / window.innerHeight);
+
+    scrollPosition !== currentBg && setCurrentBg(scrollPosition);
+  };
 
   useEffect(() => {
     setTimeout(() => {
       setInit(false);
     }, 2000);
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <>
-      <FixedBg images={images} />
-
-      <div
-        className={`relative z-30 transition-colors duration-700 ${
-          init ? "bg-white text-black" : "bg-transparent text-lightBrown"
-        }`}
-      >
-        <Hero />
-        {!init && (
-          <>
-            {" "}
-            {/* <News /> */}
-            <About />
-            <SubmitName /> <SubmitMemorial memorials={memorials} />{" "}
-            <InstagramPanel />
-          </>
-        )}
-      </div>
-    </>
+    <div
+      className={`relative z-50 transition-colors duration-700 text-lightBrown`}
+    >
+      <Hero />
+      <About />
+      <SubmitName /> <SubmitMemorial memorials={memorials} />
+    </div>
   );
 }
 

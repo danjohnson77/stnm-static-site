@@ -11,15 +11,13 @@ const Nav = () => {
   });
 
   const handleScroll = (e) => {
-    window.scrollY > window.innerHeight - 40
-      ? setShadeNav(true)
-      : setShadeNav(false);
+    window.scrollY > 40 ? setShadeNav(true) : setShadeNav(false);
   };
 
   return (
-    <nav className="sticky lg:top-0 z-50">
+    <nav className="fixed min-w-full z-50 ">
       <div
-        className="w-12 h-12 cursor-pointer bg-transparent rounded-md lg:hidden fixed m-5"
+        className="w-6 cursor-pointer bg-transparent rounded-md lg:hidden fixed m-5"
         onClick={() => setOpen(!open)}
       >
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -54,8 +52,8 @@ const Nav = () => {
       </div>
 
       <div
-        className={`text-white text-2xl text-center font-serif justify-center bg-black  ${
-          open ? "flex flex-col h-screen bg-black" : "hidden"
+        className={`text-white transition-colors duration-500 text-2xl text-center font-serif justify-center bg-transparent bg-opacity-75 ${
+          open ? "flex flex-col h-screen bg-black bg-opacity-100" : "hidden"
         } lg:flex lg:justify-between lg:p-5 ${shadeNav && "bg-black"}`}
       >
         <h1 className={`${open && "hidden"} 'cursor-pointer'`}>

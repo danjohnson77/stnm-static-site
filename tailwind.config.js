@@ -16,7 +16,7 @@ module.exports = {
       }),
 
       transitionProperty: {
-        display: "display",
+        height: "height",
       },
       colors: {
         lightBrown: {

@@ -37,7 +37,7 @@ const Slidebox = ({ keys, data, width, height }) => {
       {data &&
         data.map((d, i) => {
           return (
-            <Link href={`/memorial/${d.id}`}>
+            <Link href={`/memorial/${d.id}`} key={i}>
               <div
                 className={`relative cursor-pointer ${
                   active !== i && "hidden"

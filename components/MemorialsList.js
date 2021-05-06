@@ -1,14 +1,20 @@
 import Link from "next/link";
-import Image from "next/image";
 import renderImage from "../utils/renderImage";
 
 const MemorialsList = ({ headerText, rows }) => {
   return (
     <div className="panel w-11/12">
-      <h1 className="text-2xl">{headerText}</h1>
+      <h1 className="text-2xl text-center lg:text-left">{headerText}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {rows.map((m, i) => {
-          const { name, id, s3, location, start_date, end_date } = m;
+          const {
+            name,
+            id,
+            s3,
+            location,
+            start_date_display,
+            end_date_display,
+          } = m;
 
           return (
             <Link href={`/memorial/${id}`} key={i}>
@@ -16,9 +22,9 @@ const MemorialsList = ({ headerText, rows }) => {
                 {renderImage(s3, "/memorial_default.jpg")}
                 <p className="text-xl mt-5">{name}</p>
                 <p className="my-2">{location}</p>
-                <p>{start_date}</p>
-                <p>-</p>
-                <p>{end_date}</p>
+                <p>
+                  {start_date_display} - {end_date_display}
+                </p>
               </div>
             </Link>
           );

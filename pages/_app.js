@@ -1,29 +1,34 @@
+import { useEffect, useState } from "react";
+import Header from "../components/Header";
 import Layout from "../components/Layout";
+import Loading from "../components/Loading";
 import "../styles/globals.css";
-import { motion } from "framer-motion";
 
 function MyApp({ Component, pageProps, router }) {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => setLoading(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+  }, [router]);
+
   return (
-    <Layout>
-      <div
-        key={router.route}
-        initial="pageInitial"
-        animate="pageAnimate"
-        variants={{
-          pageInitial: {
-            opacity: 0,
-          },
-          pageAnimate: {
-            opacity: 1,
-            transition: {
-              delay: 0.1,
-            },
-          },
-        }}
-      >
-        <Component {...pageProps} />
-      </div>
-    </Layout>
+    <>
+      <Header />
+      <Layout route={router.route.replace(/\W/g, "")}>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div key={router.route}>
+            <Component {...pageProps} />
+          </div>
+        )}
+      </Layout>
+    </>
   );
 }
 

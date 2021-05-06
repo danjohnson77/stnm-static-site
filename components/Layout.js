@@ -1,20 +1,21 @@
 import Nav from "./Nav";
-import Header from "./Header";
-import Footer from "./Footer";
 
-const Layout = ({ children }) => {
+import Footer from "./Footer";
+import FixedBg from "./landing/FixedBg";
+
+const Layout = ({ children, route }) => {
+  let image = route !== "" ? route : "landing";
+
   return (
     <>
-      <Header />
-
       <Nav />
       <main
-        className="min-w-screen min-h-screen font-serif 
-       text-white"
+        className="font-serif 
+       text-white min-h-screen"
       >
-        {children}
+        <FixedBg images={[`/${image}.jpg`]}>{children}</FixedBg>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
