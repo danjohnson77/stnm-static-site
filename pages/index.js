@@ -47,8 +47,9 @@ export default function Home({ memorials }) {
 }
 
 export const getServerSideProps = async (context) => {
+  console.log("url", process.env.API_URL);
   const res = await axios.get(
-    `${process.env.API_URL}/memorials?splitByDate=true`
+    `${process.env.NEXT_PUBLIC_API_URL}/memorials?splitByDate=true`
   );
 
   const memorials = await res.data.future;
