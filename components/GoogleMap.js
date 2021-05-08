@@ -5,7 +5,7 @@ const GoogleMap = ({ lat, lng }) => {
   const googlemap = useRef(null);
   useEffect(() => {
     const loader = new Loader({
-      apiKey: process.env.MAPS_KEY,
+      apiKey: process.env.PLACES_KEY,
       version: "weekly",
     });
     let map;
