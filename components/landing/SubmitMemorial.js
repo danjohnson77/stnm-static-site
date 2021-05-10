@@ -74,10 +74,10 @@ const SubmitMemorial = ({ memorials }) => {
                       hover:bg-opacity-50 transition-colors duration-300 p-5 rounded-md"
                       >
                         <div className="py-5">
-                          <Image src={s3} width="75" height="75" />
+                          <Image src={s3} width="75" height="75" alt={name} />
                         </div>
                         <div className="flex flex-col pb-5 w-full">
-                          <h3 className="text-2xl">{name}</h3>
+                          <h2 className="text-2xl">{name}</h2>
                           <p>{location}</p>
                           <p>
                             {start_date_display} - {end_date_display}

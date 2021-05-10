@@ -13,7 +13,12 @@ const About = () => {
     <section className="bg-transparent flex flex-col justify-center items-center lg:flex-row p-5 scroll-align-start fade-in">
       <div className="flex flex-col lg:flex-row divider divide-y lg:divide-x lg:divide-y-0 items-center w-11/12 lg:py-24">
         <div className="flex flex-col text-center lg:w-6/12 items-center py-5 left-in">
-          <Image src="/about_landing.jpg" width="300" height="300" />
+          <Image
+            src="/about_landing.jpg"
+            width="384"
+            height="381"
+            alt="Creators Joy and Elise Proctor"
+          />
 
           <p className="mt-5 ">Creators Joy and Elise Proctor</p>
         </div>

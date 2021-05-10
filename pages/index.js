@@ -26,7 +26,8 @@ export default function Home({ memorials }) {
     <div className={`relative transition-colors duration-700 text-black`}>
       <Hero />
       <About />
-      <SubmitName /> <SubmitMemorial memorials={memorials} />
+      <SubmitName />
+      <SubmitMemorial memorials={memorials} />
     </div>
   );
 }
