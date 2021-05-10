@@ -1,5 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
+import ImageBg from "../../../components/ImageBg";
 import Link from "next/link";
 import GoogleMap from "../../../components/GoogleMap";
 import { useState } from "react";
@@ -32,30 +33,19 @@ const memorial = ({ entry }) => {
   );
   return (
     <>
-      <section className="relative z-50">
-        <div className="panel w-11/12 flex flex-col justify-center items-center">
-          <div className="w-10/12 py-5">
-            <Image
-              src={s3 || "/memorial_default.jpg"}
-              layout="responsive"
-              width="16"
-              height="9"
-              objectFit="cover"
-            />
-          </div>
-          <h1 className="text-3xl text-center">{name}</h1>
-          <p>
-            {start_date_display} - {end_date_display}
-          </p>
-          {donate_link !== "" && (
-            <Link href={donate_link}>
-              <button className="btn my-5">
-                Click to help cover costs of materials
-              </button>
-            </Link>
-          )}
-        </div>
-      </section>
+      <ImageBg image={s3} height="h-screen lg:h-full">
+        <h1 className="text-5xl text-center">{name}</h1>
+        <p className="text-xl">
+          {start_date_display} - {end_date_display}
+        </p>
+        {donate_link !== "" && (
+          <Link href={donate_link}>
+            <button className="btn my-5">
+              Click to help cover costs of materials
+            </button>
+          </Link>
+        )}
+      </ImageBg>
       {location_lat && location_lng && (
         <section>
           <div className="panel w-11/12 mt-5 flex flex-col lg:flex-row">

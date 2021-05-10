@@ -1,9 +1,18 @@
+import { useEffect } from "react";
 import Link from "next/link";
+import ImageBg from "../ImageBg";
 
-const SubmitName = () => {
+const SubmitName = ({ gsap }) => {
+  // useEffect(() => {
+  //   gsap.from(".fade-in", {
+  //     scrollTrigger: ".fade-in",
+  //     opacity: 0,
+  //     duration: 3,
+  //   });
+  // }, []);
   return (
-    <section className="min-h-content bg-transparent flex flex-col justify-center items-center p-5 scroll-align-start ">
-      <div className="panel text-center w-11/12">
+    <ImageBg image="/memorials.jpg" height="h-full">
+      <div className="lg:w-8/12">
         <h1 className="text-5xl mb-5">Submit a name to the memorial</h1>
         <p>
           Our database is not exhaustive and we need your help to learn the
@@ -14,10 +23,10 @@ const SubmitName = () => {
           must represent this cause.
         </p>
         <Link href="mailto:submissions@saytheirnamesmemorials.com?subject=Name Submission">
-          <button className="btn my-5">Submit a name</button>
+          <button className="btn my-5">Submit Now</button>
         </Link>
       </div>
-    </section>
+    </ImageBg>
   );
 };
 

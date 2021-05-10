@@ -1,12 +1,17 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Nav = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [shadeNav, setShadeNav] = useState(false);
+  const [shadeNav, setShadeNav] = useState(
+    router.route === "/name/[id]" ? true : false
+  );
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    router.route !== "/name/[id]" &&
+      window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
 
@@ -15,9 +20,9 @@ const Nav = () => {
   };
 
   return (
-    <nav className="fixed min-w-full z-50 ">
+    <nav className="fixed min-w-full z-50">
       <div
-        className="w-6 cursor-pointer bg-transparent rounded-md lg:hidden fixed m-5"
+        className="w-8 cursor-pointer bg-black bg-opacity-50 rounded-md lg:hidden fixed m-5"
         onClick={() => setOpen(!open)}
       >
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">

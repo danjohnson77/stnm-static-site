@@ -1,6 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import ImageBg from "../components/ImageBg";
 
 import SearchFilters from "../components/SearchFilters";
 import DropdownPanel from "../components/DropdownPanel";
@@ -28,66 +29,75 @@ export default function names({ names, details, context }) {
     });
   }, []);
   return (
-    <section className="text-white flex flex-col justify-center items-center w-10/12 mx-auto">
-      <div className="panel w-full mx-auto mb-5 text-center flex flex-col">
-        <p>
-          {" "}
-          The following list is not exhaustive or complete. Please email us to
-          submit names, stories, news articles & photos.
-        </p>
-        <a href="mailto:submissions@saytheirnamesmemorials.com?subject=Name Submission">
-          <button className="btn my-5">Submit Now</button>
-        </a>
-      </div>
-      <DropdownPanel classes="w-full panel mx-auto" heading="Disclaimer:">
-        <p>
-          This database has been compiled to highlight the gravity of systemic
-          racism on the Black community. It is not meant to be exclusionary,
-          however names included must represent Black lives.
-        </p>
-        <p>
-          Our goal is to fact check every story and provide accurate images,
-          names and information. However we rely on submissions, as well as
-          photos and information available publicly on the internet. If you see
-          errors or discrepancies on this website, or would like your loved one
-          removed from our memorial please notify us at{" "}
-          <Link href="mailto:info@saytheirnamesmemorials.com">
-            info@saytheirnamesmemorials.com
-          </Link>
-        </p>
+    <>
+      <ImageBg image="/info.jpg" height="h-full">
+        <div className="w-8/12">
+          <h1 className="text-4xl text-center">
+            {" "}
+            The following list is not exhaustive or complete. Please email us to
+            submit names, stories, news articles & photos.
+          </h1>
+          <a href="mailto:submissions@saytheirnamesmemorials.com?subject=Name Submission">
+            <button className="btn my-5">Submit Now</button>
+          </a>
+        </div>
+      </ImageBg>
+      <section className="text-black flex flex-col justify-center items-center mx-auto py-12">
+        <DropdownPanel
+          classes="lg:w-11/12 w-full panel mx-auto border"
+          heading="Disclaimer:"
+        >
+          <p>
+            This database has been compiled to highlight the gravity of systemic
+            racism on the Black community. It is not meant to be exclusionary,
+            however names included must represent Black lives.
+          </p>
+          <p>
+            Our goal is to fact check every story and provide accurate images,
+            names and information. However we rely on submissions, as well as
+            photos and information available publicly on the internet. If you
+            see errors or discrepancies on this website, or would like your
+            loved one removed from our memorial please notify us at{" "}
+            <Link href="mailto:info@saytheirnamesmemorials.com">
+              info@saytheirnamesmemorials.com
+            </Link>
+          </p>
 
-        <p>
-          Local memorials nationwide assume all liability for the photos and
-          information in their memorials.
-        </p>
-      </DropdownPanel>
-      <DropdownPanel
-        classes="w-full panel mx-auto my-5"
-        heading="Search Filters:"
-        startOpen={Object.keys(context).length > 0}
-      >
-        <SearchFilters context={context} details={details} />
-      </DropdownPanel>
-      <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-black w-full justify-center items-center p-5 gap-5 rounded-lg bg-opacity-50">
-        {names && names.length > 0 ? (
-          names.map((n, index) => {
-            const { name, birth_year, incident_year, id, s3 } = n;
-            return (
-              <Link href={`/name/${id}`} key={index}>
-                <div className="name-entry flex flex-col justify-start items-center cursor-pointer z-0 p-5 transform hover:scale-105 opacity-0 transition-all min-h-full">
-                  <Image src={s3} alt="" width="200" height="300" />
-                  <p className="text-xl mt-5 text-center">{name}</p>
-                  <p>{`${birth_year && "b. " + birth_year}`}</p>{" "}
-                  <p> {incident_year && "d. " + incident_year}</p>
-                </div>
-              </Link>
-            );
-          })
-        ) : (
-          <h1>No results found</h1>
-        )}
-      </div>
-    </section>
+          <p>
+            Local memorials nationwide assume all liability for the photos and
+            information in their memorials.
+          </p>
+        </DropdownPanel>
+        <DropdownPanel
+          classes="lg:w-11/12 w-full panel mx-auto my-5 border"
+          heading="Search Filters:"
+          startOpen={Object.keys(context).length > 0}
+        >
+          <SearchFilters context={context} details={details} />
+        </DropdownPanel>
+      </section>
+      <section>
+        <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-transparent w-full justify-center items-center p-5 gap-5 rounded-lg">
+          {names && names.length > 0 ? (
+            names.map((n, index) => {
+              const { name, birth_year, incident_year, id, s3 } = n;
+              return (
+                <Link href={`/name/${id}`} key={index}>
+                  <div className="name-entry flex flex-col justify-start items-center cursor-pointer z-0 p-5 transform hover:scale-105 opacity-0 transition-all min-h-full">
+                    <Image src={s3} alt="" width="200" height="300" />
+                    <p className="text-xl mt-5 text-center">{name}</p>
+                    <p>{`${birth_year && "b. " + birth_year}`}</p>{" "}
+                    <p> {incident_year && "d. " + incident_year}</p>
+                  </div>
+                </Link>
+              );
+            })
+          ) : (
+            <h1>No results found</h1>
+          )}
+        </div>
+      </section>
+    </>
   );
 }
 

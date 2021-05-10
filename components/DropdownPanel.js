@@ -14,7 +14,13 @@ const DropdownPanel = ({ children, heading, classes, startOpen }) => {
         <h3 className="text-xl text-center">{heading}</h3>
         <Arrow direction={startOpen ? "up" : "down"} onClick={handleClick} />
       </div>
-      <div className={``}>{open && children}</div>
+      <div
+        className={`transition-opacity duration-500 ${
+          open ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {open && children}
+      </div>
     </div>
   );
 };

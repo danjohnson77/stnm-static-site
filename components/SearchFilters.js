@@ -58,8 +58,8 @@ const SearchFilters = ({ details, context }) => {
     }
   };
   return (
-    <form className="flex flex-col">
-      <div className="flex flex-col lg:flex-row w-full lg:justify-around divide-y divider lg:divide-y-0">
+    <form className="flex flex-col   ">
+      <div className="flex flex-col lg:flex-row w-full lg:justify-around ">
         <label htmlFor="name" className="flex flex-col justify-end py-5">
           <span className="text-white-700 mr-2">Name:</span>
           <input
@@ -147,10 +147,10 @@ const SearchFilters = ({ details, context }) => {
         </label>
       </div>
 
-      <div className="grid grid-cols-2 mt-5">
+      <div className="grid grid-cols-2 mt-5 justify-center w-full">
         {details.map((d, index) => {
           return (
-            <div key={index} className="flex p-1 items-center">
+            <div key={index} className="flex p-1 items-center ">
               <input
                 type="checkbox"
                 value={d.tag}

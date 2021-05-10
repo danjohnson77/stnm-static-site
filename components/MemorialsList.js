@@ -18,8 +18,11 @@ const MemorialsList = ({ headerText, rows }) => {
 
           return (
             <Link href={`/memorial/${id}`} key={i}>
-              <div className="flex flex-col justify-start items-center cursor-pointer text-center z-0 p-5 transform hover:scale-105 transition-all min-h-full">
-                {renderImage(s3, "/memorial_default.jpg")}
+              <div className="flex flex-col justify-start items-center cursor-pointer text-center z-0 p-5 transform hover:scale-105 transition-all lg:min-h-full">
+                <div className="w-24 h-24 overflow-hidden">
+                  {renderImage(s3, "/memorial_default.jpg")}
+                </div>
+
                 <p className="text-xl mt-5">{name}</p>
                 <p className="my-2">{location}</p>
                 <p>

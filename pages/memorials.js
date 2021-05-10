@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import MemorialsList from "../components/MemorialsList";
+import ImageBg from "../components/ImageBg";
 
 const memorials = ({ memorials }) => {
   const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -12,18 +13,15 @@ const memorials = ({ memorials }) => {
 
   return (
     <>
-      <section className="px-5">
-        <div className="panel w-11/12 text-center">
-          <p>
-            Would you like to host a memorial in your area?{" "}
-            <Link
-              href={`mailto:submissions@saytheirnamesmemorials.com?subject=Hosting a Memorial`}
-            >
-              Email us at submissions@saytheirnamesmemorials.com
-            </Link>
-          </p>
-        </div>
-      </section>
+      <ImageBg image="/memorials.jpg" height="lg:h-full h-screen">
+        <h1 className="text-5xl">Memorials</h1>
+        <p className="text-2xl">
+          Would you like to host a memorial in your area?
+        </p>
+        <Link href="mailto:submissions@saytheirnamesmemorials.com?subject=Hosting a Memorial">
+          <button className="btn my-5">Email Us</button>
+        </Link>
+      </ImageBg>
       <section className="p-5">
         {memorials.future.length > 0 && (
           <MemorialsList

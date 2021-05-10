@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ImageBg from "../components/ImageBg";
 import axios from "axios";
 
 const media = ({ news }) => {
@@ -8,8 +9,11 @@ const media = ({ news }) => {
 
   return (
     <>
+      <ImageBg image="/media.jpg">
+        <h1 className="z-20 text-5xl">Press & Media</h1>
+      </ImageBg>
+
       <section className="bg-transparent flex flex-col justify-center items-center px-5 scroll-align-start">
-        <h1 className="text-5xl mb-5">Press & Media</h1>
         {news &&
           news.map((n, i) => {
             return (

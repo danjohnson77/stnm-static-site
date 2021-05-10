@@ -1,5 +1,8 @@
 module.exports = {
-  purge: [],
+  purge: {
+    enabled: true,
+    content: ["./**/*.html", "./**/*.js"],
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
@@ -8,16 +11,6 @@ module.exports = {
     },
 
     extend: {
-      backgroundImage: (theme) => ({
-        landingZero: "url('/landing_0.jpg')",
-        landingOne: "url('/landing_1.jpg')",
-        landingTwo: "url('/landing_2.jpg')",
-        landingThree: "url('/landing_3.jpg')",
-      }),
-
-      transitionProperty: {
-        height: "height",
-      },
       colors: {
         lightBrown: {
           DEFAULT: "#D5D2CD",

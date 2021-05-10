@@ -1,18 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
 const About = () => {
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
   return (
-    <section className="bg-transparent flex flex-col justify-center items-center lg:flex-row p-5 scroll-align-start">
-      <div className="panel flex flex-col lg:flex-row divider divide-y lg:divide-x lg:divide-y-0 items-center w-11/12">
-        <div className="flex flex-col text-center  lg:w-6/12 items-center py-5">
-          <div className="">
-            <Image src="/about_landing.jpg" width="300" height="300" />
-          </div>
+    <section className="bg-transparent flex flex-col justify-center items-center lg:flex-row p-5 scroll-align-start fade-in">
+      <div className="flex flex-col lg:flex-row divider divide-y lg:divide-x lg:divide-y-0 items-center w-11/12 lg:py-24">
+        <div className="flex flex-col text-center lg:w-6/12 items-center py-5 left-in">
+          <Image src="/about_landing.jpg" width="300" height="300" />
+
           <p className="mt-5 ">Creators Joy and Elise Proctor</p>
         </div>
-        <div className="flex flex-col p-5 w-11/12 lg:w-6/12 justify-center text-center ">
-          <h1 className="text-5xl mb-5">About the Memorial</h1>
+        <div className="flex flex-col w-11/12 lg:w-6/12 lg:px-5 justify-center text-center right-in">
+          <h1 className="text-5xl my-5">About the Memorial</h1>
           <p>
             The “Say Their Name Memorial” is a nationwide initiative to honor
             Black lives taken by systemic racism and racial injustice. The

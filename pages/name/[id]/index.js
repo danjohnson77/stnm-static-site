@@ -5,19 +5,16 @@ import { useEffect, useState } from "react";
 
 const name = ({ entry }) => {
   const [bio, setBio] = useState("");
+  const [opacity, setOpacity] = useState("opacity-0");
 
   const {
     biography,
     s3,
     name,
-    birth_month,
-    birth_day,
-    birth_year,
+
     birth_date_display,
     birthplace,
-    incident_month,
-    incident_day,
-    incident_year,
+
     incident_location,
     incident_date_display,
     donate_link,
@@ -33,19 +30,22 @@ const name = ({ entry }) => {
     const html = decodeHTML(biography);
 
     setBio(html);
+    setOpacity("opacity-100");
   }, []);
 
   return (
-    <section className="p-5 lg:grid lg:grid-cols-2 lg:gap-4 min-h-screen relative z-50">
-      <div className="flex flex-col items-center min-h-full">
-        <div className="panel my-5 lg:my-0 min-w-full">
-          <div className="flex justify-center content-center items-center flex-col p-5">
+    <section
+      className={`${opacity} transition-opacity duration-1000 lg:py-24 lg:grid lg:grid-cols-2 lg:gap-4 min-h-screen`}
+    >
+      <div className="flex flex-col items-center ">
+        <div className="my-5 lg:my-0 min-w-full min-h-full">
+          <div className="flex h-full content-center items-center flex-col p-5">
             {s3 && (
               <Image
                 src={s3}
-                alt=""
-                width="350"
-                height="350"
+                alt={name}
+                width="450"
+                height="450"
                 className="object-contain w-8/12"
               />
             )}
@@ -65,9 +65,9 @@ const name = ({ entry }) => {
           </div>
         </div>
         {media && media.length > 0 && (
-          <div className="panel my-5 min-w-full">
+          <div className="my-5 min-w-full">
             <h1 className="text-2xl text-center">News and Links for {name}</h1>
-            <ul className="my-5 px-5 list-disc">
+            <ul className="my-5 px-5 ">
               {media.map((m, i) => {
                 return (
                   <li key={i}>
@@ -89,7 +89,7 @@ const name = ({ entry }) => {
           <div className="min-w-full ">
             {biography ? (
               <>
-                <h1 className="text-2xl mb-5">{`${name}'s Story:`}</h1>
+                <h1 className="text-2xl mb-5 text-center lg:text-left">{`${name}'s Story:`}</h1>
                 <div
                   className="flex flex-col justify-between space-y-6"
                   dangerouslySetInnerHTML={{ __html: bio }}
@@ -100,17 +100,19 @@ const name = ({ entry }) => {
                 <p>
                   We have not yet added biographical information for {name}.
                 </p>
-                <p>
-                  Do you have information you would like to share about {name}?
-                </p>
-                <Link
-                  href={`mailto:submissions@saytheirnamesmemorials.com?subject=STNM Website Inquiry: ${name}`}
-                  className="underline"
-                >
-                  <button className="btn my-5">Let Us Know</button>
-                </Link>
               </div>
             )}
+            <div className="flex flex-col items-center">
+              <p>
+                Do you have information you would like to share about {name}?
+              </p>
+              <Link
+                href={`mailto:submissions@saytheirnamesmemorials.com?subject=STNM Website Inquiry: ${name}`}
+                className="underline"
+              >
+                <button className="btn my-5">Let Us Know</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

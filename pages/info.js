@@ -1,11 +1,14 @@
 import Image from "next/image";
+import ImageBg from "../components/ImageBg";
 
 const info = () => {
   return (
     <>
-      <section className="bg-transparent flex flex-col justify-center items-center px-5 scroll-align-start">
+      <ImageBg image="/info.jpg">
         <h1 className="text-5xl mb-5">About Us</h1>
-        <div className="panel flex flex-col lg:flex-row divider divide-y lg:divide-x lg:divide-y-0 items-center">
+      </ImageBg>
+      <section className="bg-transparent flex flex-col justify-center items-center p-12">
+        <div className="flex flex-col lg:flex-row divider divide-y lg:divide-x lg:divide-y-0 items-center">
           <div className="flex flex-col text-center w-11/12 lg:w-6/12 items-center py-5">
             <div className="shadow-xl w-max">
               <Image src="/about_landing.jpg" width="300" height="300" />
