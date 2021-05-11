@@ -120,7 +120,7 @@ const name = ({ entry }) => {
   );
 };
 
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const res = await axios.get(
     `${process.env.API_URL}/lives/${context.params.id}`
   );
@@ -134,25 +134,25 @@ export const getStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths = async () => {
-  const res = await axios.get(`${process.env.API_URL}/lives?sort=name`);
+// export const getStaticPaths = async () => {
+//   const res = await axios.get(`${process.env.API_URL}/lives?sort=name`);
 
-  const entries = await res.data;
+//   const entries = await res.data;
 
-  const ids = entries.map((entry) => {
-    return entry.id;
-  });
+//   const ids = entries.map((entry) => {
+//     return entry.id;
+//   });
 
-  const paths = ids.map((id) => {
-    return {
-      params: { id: id.toString() },
-    };
-  });
+//   const paths = ids.map((id) => {
+//     return {
+//       params: { id: id.toString() },
+//     };
+//   });
 
-  return {
-    paths,
-    fallback: false,
-  };
-};
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
 
 export default name;
