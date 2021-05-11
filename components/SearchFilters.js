@@ -119,8 +119,8 @@ const SearchFilters = ({ details, context }) => {
               onChange={handleLocationChange}
               className="bg-transparent mt-0 block px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-darkBrown "
             />
-            <div className="relative">
-              <ul className="bg-black absolute  py-2 shadow-lg">
+            <div className="">
+              <ul className="bg-transparent   py-2 ">
                 {!locSelected &&
                   suggestions &&
                   suggestions.length > 0 &&
@@ -132,7 +132,7 @@ const SearchFilters = ({ details, context }) => {
                         onClick={(e) => {
                           handleLocationClick(e);
                         }}
-                        className="hover:bg-white hover:text-black py-2 text-center"
+                        className="hover:bg-black hover:text-white transition-colors duration-200 py-2 text-center"
                         key={index}
                         place_id={place_id}
                         value={`${description}`}

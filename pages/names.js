@@ -93,7 +93,9 @@ export default function names({ names, details, context }) {
               );
             })
           ) : (
-            <h1>No results found</h1>
+            <div className="w-full flex justify-center">
+              <h1 className="text-4xl text-center">No results found</h1>
+            </div>
           )}
         </div>
       </section>
