@@ -32,9 +32,9 @@ const SubmitMemorial = ({ memorials }) => {
         <div
           className={`${
             memorials ? "lg:w-6/12" : "w-11/12"
-          }  min-h-full flex flex-col justify-around lg:px-10`}
+          }  min-h-full flex flex-col justify-between lg:px-10`}
         >
-          <h1 className="text-3xl mb-5">
+          <h1 className="text-3xl my-5">
             Create a memorial in your community.
           </h1>
           <p>
@@ -50,7 +50,7 @@ const SubmitMemorial = ({ memorials }) => {
             business days for response.
           </p>
           <Link href="mailto:info@saytheirnamesmemorials.com?subject=I want to make a local Memorial">
-            <button className="btn my-5">Request Info</button>
+            <button className="btn">Request Info</button>
           </Link>
         </div>
         {memorials && (
@@ -89,7 +89,7 @@ const SubmitMemorial = ({ memorials }) => {
                 })}
               </div>
               <Link href="/memorials">
-                <button className="btn divide-y-0 divide-opacity-0">
+                <button className="btn divide-y-0 divide-opacity-0 mt-5">
                   See All Memorials
                 </button>
               </Link>

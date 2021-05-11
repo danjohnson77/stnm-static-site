@@ -27,7 +27,7 @@ export default function Home({ memorials }) {
       <Hero />
       <About />
       <SubmitName />
-      <SubmitMemorial memorials={memorials} />
+      <SubmitMemorial memorials={memorials && memorials} />
     </div>
   );
 }

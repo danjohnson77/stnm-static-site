@@ -26,11 +26,6 @@ const memorial = ({ entry }) => {
       media[0].title === ""
   );
 
-  console.log(
-    sponsors[0].name === "" &&
-      organizers[0].name === "" &&
-      media[0].title === ""
-  );
   return (
     <>
       <ImageBg image={s3} height="h-screen lg:h-full">
