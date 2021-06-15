@@ -49,10 +49,10 @@ const memorial = ({ entry }) => {
         <section>
           <div className="panel w-11/12 mt-5 flex flex-col lg:flex-row">
             <div className="w-full">
-              {/* <GoogleMap
+              <GoogleMap
                 lat={parseFloat(location_lat)}
                 lng={parseFloat(location_lng)}
-              /> */}
+              />
             </div>
             <div className="w-full flex justify-center items-center p-5 text-center">
               <h1 className="text-xl">{location}</h1>
