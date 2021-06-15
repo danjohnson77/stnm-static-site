@@ -24,7 +24,7 @@ const MemorialsList = ({ headerText, rows }) => {
                 </div>
 
                 <p className="text-xl mt-5">{name}</p>
-                <p className="my-2">{location}</p>
+
                 <p>
                   {start_date_display} - {end_date_display}
                 </p>

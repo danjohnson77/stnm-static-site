@@ -39,7 +39,7 @@ const name = ({ entry }) => {
     >
       <div className="flex flex-col items-center ">
         <div className="my-5 lg:my-0 min-w-full min-h-full">
-          <div className="flex h-full content-center items-center flex-col p-5">
+          <div className="flex content-center items-center flex-col p-5">
             {s3 && (
               <Image
                 src={s3}
@@ -50,34 +50,40 @@ const name = ({ entry }) => {
               />
             )}
 
-            <h1 className="text-4xl mt-5 text-center">{name}</h1>
-            <p className="text-lg">
-              {birth_date_display !== "" && birth_date_display} -{" "}
-              {incident_date_display !== "" && incident_date_display}
-            </p>
-            {birthplace && <p>Birthplace: {birthplace}</p>}
-            {incident_location && (
-              <p>Location of Incident: {incident_location}</p>
-            )}
-            {donate_link !== "" && (
-              <button className="btn my-5">Support {`${name}`}</button>
-            )}
+            <h1 className="text-4xl mt-5 text-center ">{name}</h1>
+            <div className="text-gray-600 text-center">
+              <p className="text-lg">
+                {birth_date_display !== "" && birth_date_display}{" "}
+                {birthplace && `(${birthplace})`}
+              </p>
+              <p> - </p>
+              <p className="text-lg">
+                {incident_date_display !== "" && incident_date_display}{" "}
+                {incident_location && `(${incident_location})`}
+              </p>
+
+              {donate_link !== "" && (
+                <button className="btn my-5">Support {`${name}`}</button>
+              )}
+            </div>
           </div>
+          {media && media.length > 0 && (
+            <div className="w-10/12 flex flex-col justify-center items-center mx-auto">
+              <h1 className="text-2xl text-center">
+                News and Links for {name}
+              </h1>
+              <ul className="p-5 ">
+                {media.map((m, i) => {
+                  return (
+                    <li key={i}>
+                      <Link href={m.website || "/names"}>{m.title}</Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
         </div>
-        {media && media.length > 0 && (
-          <div className="my-5 min-w-full">
-            <h1 className="text-2xl text-center">News and Links for {name}</h1>
-            <ul className="my-5 px-5 ">
-              {media.map((m, i) => {
-                return (
-                  <li key={i}>
-                    <Link href={m.website}>{m.title}</Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
       </div>
 
       <div className="flex flex-col items-center ">
@@ -89,7 +95,6 @@ const name = ({ entry }) => {
           <div className="min-w-full ">
             {biography ? (
               <>
-                <h1 className="text-2xl mb-5 text-center lg:text-left">{`${name}'s Story:`}</h1>
                 <div
                   className="flex flex-col justify-between space-y-6"
                   dangerouslySetInnerHTML={{ __html: bio }}
@@ -102,7 +107,7 @@ const name = ({ entry }) => {
                 </p>
               </div>
             )}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center mt-10">
               <p>
                 Do you have information you would like to share about {name}?
               </p>

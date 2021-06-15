@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import axios from "axios";
 import MemorialsList from "../components/MemorialsList";
 import ImageBg from "../components/ImageBg";
@@ -10,6 +9,8 @@ const memorials = ({ memorials }) => {
     month: "long",
     day: "numeric",
   });
+
+  const { past, future } = memorials;
 
   return (
     <>
@@ -23,16 +24,16 @@ const memorials = ({ memorials }) => {
         </Link>
       </ImageBg>
       <section className="p-5">
-        {memorials.future.length > 0 && (
+        {future.length > 0 && (
           <MemorialsList
             headerText="Current and Upcoming Memorials"
-            rows={memorials.future}
+            rows={future}
           />
         )}
       </section>
       <section className="p-5">
-        {memorials.past.length > 0 && (
-          <MemorialsList headerText="Past Memorials" rows={memorials.past} />
+        {past.length > 0 && (
+          <MemorialsList headerText="Past Memorials" rows={past} />
         )}
       </section>
     </>

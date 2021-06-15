@@ -1,5 +1,4 @@
 import axios from "axios";
-import Image from "next/image";
 import ImageBg from "../../../components/ImageBg";
 import Link from "next/link";
 import GoogleMap from "../../../components/GoogleMap";
@@ -26,6 +25,11 @@ const memorial = ({ entry }) => {
       media[0].title === ""
   );
 
+  const isFutureDate = (date) => {
+    const d = Date.parse(date);
+    return d > Date.now();
+  };
+
   return (
     <>
       <ImageBg image={s3} height="h-screen lg:h-full">
@@ -33,7 +37,7 @@ const memorial = ({ entry }) => {
         <p className="text-xl">
           {start_date_display} - {end_date_display}
         </p>
-        {donate_link !== "" && (
+        {donate_link !== "" && isFutureDate(end_date_display) && (
           <Link href={donate_link}>
             <button className="btn my-5">
               Click to help cover costs of materials
@@ -45,10 +49,10 @@ const memorial = ({ entry }) => {
         <section>
           <div className="panel w-11/12 mt-5 flex flex-col lg:flex-row">
             <div className="w-full">
-              <GoogleMap
+              {/* <GoogleMap
                 lat={parseFloat(location_lat)}
                 lng={parseFloat(location_lng)}
-              />
+              /> */}
             </div>
             <div className="w-full flex justify-center items-center p-5 text-center">
               <h1 className="text-xl">{location}</h1>

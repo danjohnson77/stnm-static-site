@@ -38,13 +38,10 @@ const Nav = () => {
             : "hidden"
         } lg:flex lg:justify-between lg:p-5 ${shadeNav && "bg-black"}`}
       >
-        <h1 className={`${open && "hidden"} 'cursor-pointer'`}>
-          <Link href="/">Say Their Names Memorial</Link>
+        <h1 className="cursor-pointer nav-item">
+          <Link href="/">{open ? "Home" : "Say Their Names Memorial"}</Link>
         </h1>
         <ul className="flex min-w-screen flex-col lg:flex-row">
-          <li className="nav-item" onClick={() => setOpen(false)}>
-            <Link href="/">Home</Link>
-          </li>
           <li className="nav-item" onClick={() => setOpen(false)}>
             <Link href="/names">Names</Link>
           </li>
@@ -52,7 +49,7 @@ const Nav = () => {
             <Link href="/memorials">Memorials</Link>
           </li>
           <li className="nav-item" onClick={() => setOpen(false)}>
-            <Link href="/info">Info</Link>
+            <Link href="/info">About Us</Link>
           </li>
           <li className="nav-item" onClick={() => setOpen(false)}>
             <Link href="/action">Action</Link>
@@ -61,9 +58,17 @@ const Nav = () => {
             <Link href="/media">Media</Link>
           </li>
           <li className="nav-item" onClick={() => setOpen(false)}>
-            <Link href="https://www.instagram.com/saytheirnamesmemorial">
+            <a
+              href="https://www.instagram.com/saytheirnamesmemorial"
+              target="_blank"
+            >
               <i className="fab fa-instagram cursor-pointer"></i>
-            </Link>
+            </a>
+          </li>
+          <li className="nav-item" onClick={() => setOpen(false)}>
+            <a href="https://twitter.com/Alliance4BL" target="_blank">
+              <i className="fab fa-twitter cursor-pointer"></i>
+            </a>
           </li>
         </ul>
       </div>

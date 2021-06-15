@@ -12,5 +12,6 @@ module.exports = {
     MAPS_KEY: process.env.GOOGLE_MAPS_API_KEY,
     PLACES_KEY: process.env.GOOGLE_PLACES_API_KEY,
     API_URL: process.env.API_URL,
+    IG_TOKEN: process.env.IG_TOKEN,
   },
 };

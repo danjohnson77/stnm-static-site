@@ -12,9 +12,9 @@ const SubmitName = ({ gsap }) => {
   // }, []);
   return (
     <ImageBg image="/memorials.jpg" height="h-full">
-      <div className="lg:w-8/12">
+      <div className="w-8/12">
         <h1 className="text-5xl mb-5">Submit a name to the memorial</h1>
-        <p>
+        <p className="text-lg">
           Our database is not exhaustive and we need your help to learn the
           names and hear the stories of loved ones and community members who are
           not on our list. Click here for our current list of names which have
