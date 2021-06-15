@@ -11,7 +11,7 @@ const DropdownPanel = ({ children, heading, classes, startOpen }) => {
   return (
     <div className={`${classes}  transition-height duration-500`}>
       <div className="flex justify-between">
-        <h3 className="text-xl text-center">{heading}</h3>
+        <h1 className="text-xl text-center">{heading}</h1>
         <Arrow direction={startOpen ? "up" : "down"} onClick={handleClick} />
       </div>
       <div

@@ -61,12 +61,19 @@ const Nav = () => {
             <a
               href="https://www.instagram.com/saytheirnamesmemorial"
               target="_blank"
+              rel="noopener"
+              aria-label="Link to instagram page"
             >
               <i className="fab fa-instagram cursor-pointer"></i>
             </a>
           </li>
           <li className="nav-item" onClick={() => setOpen(false)}>
-            <a href="https://twitter.com/Alliance4BL" target="_blank">
+            <a
+              href="https://twitter.com/Alliance4BL"
+              target="_blank"
+              rel="noopener"
+              aria-label="Link to twitter page"
+            >
               <i className="fab fa-twitter cursor-pointer"></i>
             </a>
           </li>

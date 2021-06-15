@@ -9,12 +9,10 @@ const Footer = () => {
         </div>
 
         <div className="flex w-6/12  justify-evenly">
-          <ul>
-            <li>
-              <Link href="/names" className="cursor-pointer">
-                Names
-              </Link>
-            </li>
+          <ul className="footer-nav">
+            <Link href="/names">
+              <li>Names</li>
+            </Link>
             <li>
               <Link href="/memorials">Memorials</Link>
             </li>
@@ -28,7 +26,7 @@ const Footer = () => {
               <Link href="/media">Media</Link>
             </li>
           </ul>
-          <ul>
+          <ul className="footer-nav">
             <li>
               <Link href="mailto:submissions@saytheirnamesmemorials.com?subject=Press Inquiry">
                 Press Inquiries

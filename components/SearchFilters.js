@@ -151,13 +151,17 @@ const SearchFilters = ({ details, context }) => {
         {details.map((d, index) => {
           return (
             <div key={index} className="flex p-1 items-center ">
-              <input
-                type="checkbox"
-                value={d.tag}
-                name="details"
-                defaultChecked={state.details && state.details.includes(d.tag)}
-              />
-              <label htmlFor={d.tag} className="ml-1">
+              <label htmlFor={d.tag} className="mr-1">
+                <input
+                  type="checkbox"
+                  value={d.tag}
+                  name="details"
+                  defaultChecked={
+                    state.details && state.details.includes(d.tag)
+                  }
+                  className="mr-2"
+                />
+
                 {d.display_text}
               </label>
             </div>

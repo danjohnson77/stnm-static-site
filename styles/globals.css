@@ -44,6 +44,10 @@
     @apply divide-black;
   }
 
+  .footer-nav > li {
+    @apply cursor-pointer p-3;
+  }
+
   .video-responsive {
     overflow: hidden;
     padding-bottom: 56.25%;
@@ -86,6 +90,6 @@
     margin: 0;
   }
   button {
-    @apply bg-medBrown border-lightBrown;
+    @apply bg-darkBrown border-lightBrown;
   }
 }

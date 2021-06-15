@@ -1,15 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 const SubmitMemorial = ({ memorials }) => {
+  const [data, setData] = useState(null);
   if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
   }
-  useEffect(() => {
+  useEffect(async () => {
+    const res = await axios.get(
+      `${process.env.API_URL}/memorials?splitByDate=true`
+    );
+
+    const memorials = await res.data.future;
+    memorials && setData(memorials);
+
     gsap.from(".fade-in", {
       scrollTrigger: ".fade-in",
       opacity: 0,
@@ -31,7 +39,7 @@ const SubmitMemorial = ({ memorials }) => {
       <div className="text-center w-11/12 flex flex-col lg:flex-row divide-y lg:divide-x lg:divide-y-0 divide-black items-stretch lg:py-24">
         <div
           className={`${
-            memorials ? "lg:w-6/12" : "w-11/12"
+            data ? "lg:w-6/12" : "w-11/12"
           }  min-h-full flex flex-col justify-between lg:px-10 memorial-left-in create-memorial max-w-xl mx-auto`}
         >
           <h1 className="text-3xl my-5">Create a Community Memorial</h1>
@@ -56,11 +64,11 @@ const SubmitMemorial = ({ memorials }) => {
             <button className="btn my-5 lg:mt-5">Request Info</button>
           </Link>
         </div>
-        {memorials && (
-          <div className="lg:w-6/12 flex flex-col lg:justify-between lg:px-10 memorial-right-in create-memorial">
-            <h1 className="text-3xl my-5">Upcoming Memorials</h1>
-            <div className="flex flex-col items-center justify-center h-full">
-              {memorials.map((m, i) => {
+        <div className="lg:w-6/12 flex flex-col lg:justify-between lg:px-10 memorial-right-in create-memorial">
+          <h1 className="text-3xl my-5">Upcoming Memorials</h1>
+          <div className="flex flex-col items-center justify-center h-full">
+            {data &&
+              data.map((m, i) => {
                 const {
                   s3,
                   name,
@@ -72,7 +80,7 @@ const SubmitMemorial = ({ memorials }) => {
                 return (
                   <Link href={`/memorial/${id}`} key={i}>
                     <div
-                      className="flex w-full flex-col  lg:flex-row cursor-pointer justify-center align-center items-center transform hover:bg-black hover:text-white
+                      className="flex w-full flex-col lg:flex-row cursor-pointer justify-center align-center items-center transform hover:bg-black hover:text-white
                       hover:bg-opacity-50 transition-colors duration-300 p-5 rounded-md"
                     >
                       <div className="py-5">
@@ -89,14 +97,13 @@ const SubmitMemorial = ({ memorials }) => {
                   </Link>
                 );
               })}
-            </div>
-            <Link href="/memorials">
-              <button className="btn divide-y-0 divide-opacity-0 mt-5">
-                See All Memorials
-              </button>
-            </Link>
           </div>
-        )}
+          <Link href="/memorials">
+            <button className="btn divide-y-0 divide-opacity-0 mt-5">
+              See All Memorials
+            </button>
+          </Link>
+        </div>
       </div>
     </section>
   );

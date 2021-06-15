@@ -1,6 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
-
+import Image from "next/image";
 import ImageBg from "../components/ImageBg";
 import Modal from "../components/Modal";
 
@@ -88,24 +88,34 @@ export default function names({ names, details, context }) {
         </DropdownPanel>
       </section>
       <section>
-        <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-transparent w-full justify-start items-center p-5 gap-4 rounded-lg">
+        <div className="grid names-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 bg-transparent  justify-center items-center gap-y-8 rounded-lg w-11/12 mx-auto mb-12">
           {names && names.length > 0 ? (
             names.map((n, index) => {
               const { name, birth_year, incident_year, id, s3 } = n;
               return (
                 <Link href={`/name/${id}`} key={index}>
-                  <div className="name-entry flex flex-col justify-start items-center cursor-pointer z-0 p-5 transform hover:scale-105 opacity-0 transition-all min-h-full">
-                    <img
-                      src={s3}
-                      alt={name}
-                      className="w-full h-full object-contain"
-                      loading="lazy"
-                    />
+                  <div className="name-entry flex flex-col justify-between items-center cursor-pointer z-0 transform hover:scale-105 opacity-0 transition-all min-h-full w-64 h-64 mx-auto">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={s3}
+                        alt={name}
+                        layout="fill"
+                        objectFit="contain"
+                      />
+                    </div>
                     <div className="mt-2 text-xl text-center">
                       <p>{name}</p>
                       <div className="text-gray-500 text-lg">
                         <p>
-                          {`${birth_year && birth_year + " - "}`}
+                          {`${birth_year && birth_year}`}
+                          <span
+                            className={`${
+                              birth_year || incident_year || "invisible"
+                            }`}
+                          >
+                            {" "}
+                            -{" "}
+                          </span>
                           {incident_year && incident_year}
                         </p>
                       </div>
