@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const Modal = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const { sessionStorage } = window;
@@ -22,7 +22,7 @@ const Modal = ({ children }) => {
         !isOpen && "hidden"
       } flex items-center`}
     >
-      <dialog className="w-6/12 mx-auto flex flex-col justify-center">
+      <dialog className="w-11/12 lg:w-6/12 mx-auto flex flex-col justify-center bg-white">
         {children}{" "}
         <button className="btn my-5" onClick={handleAcceptClick}>
           I understand
