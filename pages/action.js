@@ -7,8 +7,11 @@ const action = () => {
         <h1 className="text-5xl p-5 text-center ">Take Action</h1>
       </ImageBg>
 
-      <section className="flex flex-col lg:flex-row divider divide-y lg:divide-x lg:divide-y-0 items-center w-11/12 mx-auto lg:py-24">
-        <div className="flex flex-col w-11/12 lg:w-6/12 lg:px-5 justify-center text-center flex-grow">
+      <section className="flex flex-col  lg:flex-row divider divide-y lg:divide-x lg:divide-y-0  w-11/12 mx-auto lg:py-24 ">
+        <div
+          className="flex flex-col w-11/12 lg:w-6/12 lg:px-5 justify-between text-center
+        "
+        >
           <h1 className="text-5xl my-5">Volunteer Opportunities</h1>
           <p>
             Our website and memorials are run entirely by volunteers. The
@@ -30,7 +33,7 @@ const action = () => {
             <button className="btn my-5">Contact Us</button>
           </a>
         </div>
-        <div className="flex flex-col w-11/12 lg:w-6/12 lg:px-5 justify-between text-center flex-grow h-full">
+        <div className="flex flex-col w-11/12 lg:w-6/12 lg:px-5 justify-between text-center">
           <h1 className="text-5xl my-5">Support Us</h1>
           <p>
             Your donation supports website and database maintenance, materials
