@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import ImageBg from "../ImageBg";
+import { gsap } from "gsap";
 
-const SubmitName = ({ gsap }) => {
-  // useEffect(() => {
-  //   gsap.from(".fade-in", {
-  //     scrollTrigger: ".fade-in",
-  //     opacity: 0,
-  //     duration: 3,
-  //   });
-  // }, []);
+const SubmitName = () => {
+  useEffect(async () => {
+    gsap.from(".name-in", {
+      scrollTrigger: ".name-in",
+      opacity: 0,
+      duration: 2,
+    });
+  }, []);
+
   return (
     <ImageBg image="/memorials.jpg" height="h-full">
-      <div className="w-8/12">
+      <div className="w-8/12 name-in">
         <h1 className="text-5xl mb-5">Submit a name to the memorial</h1>
         <p className="text-lg">
           Our database is not exhaustive and we need your help to learn the

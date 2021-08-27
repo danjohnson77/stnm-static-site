@@ -36,7 +36,9 @@ const Nav = () => {
           open
             ? "flex flex-col h-screen bg-black bg-opacity-100 opacity-100"
             : "hidden"
-        } lg:flex lg:justify-between lg:p-5 ${shadeNav && "bg-black"}`}
+        } lg:flex lg:justify-between lg:p-5 ${
+          shadeNav && "bg-black"
+        } transition-all duration-200 ease-in`}
       >
         <h1 className="cursor-pointer nav-item">
           <Link href="/">{open ? "Home" : "Say Their Names Memorial"}</Link>

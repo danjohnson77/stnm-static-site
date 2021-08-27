@@ -23,7 +23,7 @@ const InstagramPanel = () => {
           {data &&
             data.data.map((d, index) => {
               return (
-                <div className="w-36 h-36 col-span-1 mx-auto">
+                <div className="w-36 h-36 col-span-1 mx-auto" key={index}>
                   <a
                     href={d.permalink}
                     key={index}
